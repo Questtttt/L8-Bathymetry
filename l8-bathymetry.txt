@@ -1,0 +1,170 @@
+Map.centerObject(roi,13);
+Map.setControlVisibility({all: false});   //Cleaning
+Map.setControlVisibility({layerList: true});
+
+//Masking
+function mask(img){
+  var qa = img.select('QA_PIXEL');
+  
+  var ccBitMask = 1 << 3; //Cloud Coverage
+  var csBitMask = 1 << 4; //Cloud Shadow
+  
+  var ma =  qa.bitwiseAnd(ccBitMask).eq(0)
+            .and(
+            qa.bitwiseAnd(csBitMask).eq(0));
+           
+  ma = ma.and(img.select([2]).gt(0.01));
+  ma = ma.and(img.select([4]).lt(0.03));
+  
+  ma = ma.focalMin({kernel: ee.Kernel.circle({radius: 1}), iterations: 1});
+  img = img.mask(ma);
+  
+  var ndwi_revise = (img.select([2]).subtract(img.select([4]))).divide(img.select([2]).add(img.select([4])));
+         img = img.updateMask(ndwi_revise.gt(0));
+  
+  return img;
+}
+
+//Landsat 8 scale correcting
+function applyScaleFactors(image) {
+  var opticalBands = image.select('SR_B.').multiply(0.0000275).add(-0.2);
+  var thermalBands = image.select('ST_B.*').multiply(0.00341802).add(149.0);
+  return image.addBands(opticalBands, null, true)
+              .addBands(thermalBands, null, true);
+}
+
+//set the filter input data to l8-2 depth data
+var l8 = ee.ImageCollection('LANDSAT/LC08/C02/T1_TOA').filter(ee.Filter.bounds(roi));
+//var l8 = l8nol.map(applyScaleFactors);
+
+//Set up the date range and filter
+l8 = l8.filter(ee.Filter.date(
+  ee.Date.fromYMD(2016, 1, 1),
+  ee.Date.fromYMD(2016, 12, 31)));
+
+//run the mask function
+l8 = l8.map(mask);
+
+//get the median value of it
+var median = l8.reduce(ee.Reducer.median());
+
+//calculate the big Rrs, rrs,and rrs*1000
+var bigrrs = median.divide(ee.Number.expression('Math.PI'));
+var rrsvec = bigrrs.divide((bigrrs.multiply(ee.Number(1.7))).add(ee.Number(0.52)));
+var rrsvec1k = rrsvec.multiply(ee.Number(1000));
+
+//Chla Test
+var mergeBands = function(image, previous) {
+  return ee.Image(previous).addBands(image);
+};
+
+var kloroDate = kloro.select(['chlor_a']).filter(ee.Filter.date(
+  ee.Date.fromYMD(2016, 1, 1),
+  ee.Date.fromYMD(2016, 12, 31))).mean();
+var kloroClip = kloroDate.clip(roi);
+var kloroB = kloroClip;
+var kloroR = ee.Number(kloroB.reduceRegion({
+  reducer: ee.Reducer.mean(),
+  scale: 30,
+  bestEffort: true
+}).get('chlor_a'));
+// Map.addLayer(kloroB, {min: 0, max: 10, palette: ['green', 'blue']}, 'chla');
+
+var kloroIf = ee.Algorithms.If(kloroR.lte(1), kloroR, '0.5');
+
+print(kloroIf);
+
+var chla = kloroIf.getInfo();
+var m0 = ee.Number(52.073 * Math.exp(0.957*chla));
+var m1 = ee.Number(50.156 * Math.exp(0.957*chla));
+
+// print(m0, m1)
+
+//calculate rrs vec
+var lnrrsvec = rrsvec1k.log();
+
+//calculate depth here
+var depth = (((lnrrsvec.select([1]).divide(lnrrsvec.select([2]))).multiply(m0))).subtract(m1);
+
+//set boundary, remove negative value or large value in the result
+var depthA = depth.where(depth.lt(0), ee.Number(0));
+// var depth_output = depthA.where(depthA.gt(20), ee.Number(20));
+
+var test = depthA.clip(roi);
+
+//plot depth_output
+Map.addLayer(test, {min: 0, max: 20, palette: ['00FFFF', '0000FF']});
+
+// Export.image.toDrive(test.clip(roi), 'l8');
+
+var mainPanel = ui.Panel({
+    layout: ui.Panel.Layout.flow('vertical', true),
+    style: {
+      position: 'top-center',
+      stretch: 'horizontal',
+      height: '35%',
+      width: '80%',
+    }
+  });
+
+var box = ui.Label({
+  value: 'Satellite Derived Bathymetry', 
+  style: { 
+    fontSize: '24px',
+    fontWeight: 'bold',
+    textAlign: 'center'
+  }
+});
+mainPanel.add(box);
+
+var des = ui.Label({
+  value: 'This Google Earth Engine App is used for generating shallow water bathymetry mapping using Landsat 8 dataset. ' +
+         'Cloud masking and mNDWI is used for making clear water mosaic and land-water filter. ' +
+         'Water depth algoritm is based on Li, J. (2021). ', 
+  style: { 
+    fontSize: '16px'
+  }
+});
+mainPanel.add(des);
+
+var by = ui.Label({
+  value: 'Script by Muhammad Hail Daffa', 
+  style: { 
+    fontSize: '16px'
+  }
+});
+
+var script = ui.Label({
+  value: 'See the script yourself!', 
+  style: { 
+    fontSize: '16px'
+  }
+}).setUrl("https://code.earthengine.google.com/dbd73b4b072b368d69900c30a4fea884");
+
+mainPanel.add(by);
+mainPanel.add(script);
+
+var closeButt = ui.Button({
+  label: 'Close',
+  style: {position: 'bottom-left'},
+  onClick: function() {
+    Map.remove(mainPanel);
+    Map.add(learnMoreButton);
+  }
+});
+mainPanel.add(closeButt);
+
+var learnMoreButton = ui.Button({
+      label: 'Learn More',
+      style: {
+        position: 'top-left',
+        padding: '0',
+      },
+      // React to the button's click event.
+      onClick: function() {
+        Map.add(mainPanel);
+        Map.remove(learnMoreButton);
+      }
+});
+
+Map.add(learnMoreButton);
