@@ -139,7 +139,7 @@ var script = ui.Label({
   style: { 
     fontSize: '16px'
   }
-}).setUrl("https://code.earthengine.google.com/dbd73b4b072b368d69900c30a4fea884");
+}).setUrl("https://raw.githubusercontent.com/Questtttt/Bathy/main/l8-bathymetry.txt?token=GHSAT0AAAAAACFVKADMRF76SCR5SN2QVNBWZGER4UQ");
 
 mainPanel.add(by);
 mainPanel.add(script);
