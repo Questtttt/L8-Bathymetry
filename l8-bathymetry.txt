@@ -139,7 +139,7 @@ var script = ui.Label({
   style: { 
     fontSize: '16px'
   }
-}).setUrl("https://raw.githubusercontent.com/Questtttt/Bathy/main/l8-bathymetry.txt?token=GHSAT0AAAAAACFVKADMRF76SCR5SN2QVNBWZGER4UQ");
+}).setUrl("https://github.com/Questtttt/Bathy/blob/main/l8-bathymetry.txt");
 
 mainPanel.add(by);
 mainPanel.add(script);
