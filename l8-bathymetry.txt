@@ -1,3 +1,19 @@
+var roi = 
+    /* color: #d63000 */
+    /* shown: false */
+    /* displayProperties: [
+      {
+        "type": "rectangle"
+      }
+    ] */
+    ee.Geometry.Polygon(
+        [[[113.00636498973195, -7.6238532222025475],
+          [113.00636498973195, -7.643929738003068],
+          [113.04928033397023, -7.643929738003068],
+          [113.04928033397023, -7.6238532222025475]]], null, false)
+
+var kloro = ee.ImageCollection("NASA/OCEANDATA/MODIS-Aqua/L3SMI");
+
 Map.centerObject(roi,13);
 Map.setControlVisibility({all: false});   //Cleaning
 Map.setControlVisibility({layerList: true});
