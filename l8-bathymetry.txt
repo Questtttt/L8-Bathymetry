@@ -254,18 +254,18 @@ function mask(img){
 
 //Set the filter input data to landsat 8 data
 var l8nol = ee.ImageCollection('LANDSAT/LC08/C02/T1').filter(ee.Filter.bounds(geom));
-//var l8 = l8nol.map(applyScaleFactors);
 
 //Set up the date range and filter
 var l8 = l8nol.filter(ee.Filter.date(DateStart, DateEnd));
+
+//Geometric RMSE Model
+print('Geometric RMSE Model:', l8.aggregate_mean('GEOMETRIC_RMSE_MODEL'));
 
 //Run the mask function
 l8 = l8.map(mask);
 
 //Get the median value of it
 var median = l8.reduce(ee.Reducer.median()).clip(geom);
-
-print('Geometric RMSE Model:',l8.aggregate_mean('GEOMETRIC_RMSE_MODEL'));
 
 //Convert DN
 function convert(img){
