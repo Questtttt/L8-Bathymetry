@@ -1,2 +1,2 @@
 # Bathy
-PEMETAAN BATIMETRI LAUT DANGKAL DI UTARA JAWA TIMUR MENGGUNAKAN LANDSAT 8 DENGAN MEMANFAATKAN GOOGLE EARTH ENGINE
+Pemetaan Batimetri Laut Dangkal di Utara Jawa Timur Menggunakan Landsat 8 Memanfaatkan Google Earth Engine
