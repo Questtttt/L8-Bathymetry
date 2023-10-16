@@ -1,4 +1,5 @@
-var roi = 
+var kloro = ee.ImageCollection("JAXA/GCOM-C/L3/OCEAN/CHLA/V3"),
+    roi_0 = 
     /* color: #d63000 */
     /* shown: false */
     /* displayProperties: [
@@ -7,180 +8,363 @@ var roi =
       }
     ] */
     ee.Geometry.Polygon(
-        [[[113.00636498973195, -7.6238532222025475],
-          [113.00636498973195, -7.643929738003068],
-          [113.04928033397023, -7.643929738003068],
-          [113.04928033397023, -7.6238532222025475]]], null, false)
+        [[[112.99685695666736, -7.601959891428382],
+          [112.99685695666736, -7.662189692205628],
+          [113.05556514758533, -7.662189692205628],
+          [113.05556514758533, -7.601959891428382]]], null, false),
+    roi_0_sg = 
+    /* color: #98ff00 */
+    /* shown: false */
+    /* displayProperties: [
+      {
+        "type": "rectangle"
+      },
+      {
+        "type": "rectangle"
+      },
+      {
+        "type": "rectangle"
+      },
+      {
+        "type": "rectangle"
+      },
+      {
+        "type": "rectangle"
+      }
+    ] */
+    ee.Geometry.MultiPolygon(
+        [[[[113.00252178210681, -7.607830115035795],
+           [113.00252178210681, -7.6139554828191285],
+           [113.01488140124744, -7.6139554828191285],
+           [113.01488140124744, -7.607830115035795]]],
+         [[[113.02020290393298, -7.607830115035795],
+           [113.02020290393298, -7.614295778463285],
+           [113.03410747546619, -7.614295778463285],
+           [113.03410747546619, -7.607830115035795]]],
+         [[[113.03788402575915, -7.607830115035795],
+           [113.03788402575915, -7.614636073837259],
+           [113.05264690417712, -7.614636073837259],
+           [113.05264690417712, -7.607830115035795]]],
+         [[[113.01522472400134, -7.617358427100882],
+           [113.01522472400134, -7.624504522098134],
+           [113.02466609973376, -7.624504522098134],
+           [113.02466609973376, -7.617358427100882]]],
+         [[[113.03290584582751, -7.617528573605549],
+           [113.03290584582751, -7.623823946760762],
+           [113.04200389880603, -7.623823946760762],
+           [113.04200389880603, -7.617528573605549]]]], null, false),
+    roi_1 = 
+    /* color: #ff0000 */
+    /* shown: false */
+    ee.Geometry.Polygon(
+        [[[113.22606846785642, -7.706307202992511],
+          [113.2052974412451, -7.684107135085484],
+          [113.18641468978025, -7.701118785477416],
+          [113.21353718733884, -7.733949338341001]]]),
+    roi_1_sg = 
+    /* color: #98ff00 */
+    /* shown: false */
+    /* displayProperties: [
+      {
+        "type": "rectangle"
+      },
+      {
+        "type": "rectangle"
+      },
+      {
+        "type": "rectangle"
+      }
+    ] */
+    ee.Geometry.MultiPolygon(
+        [[[[113.18950856477073, -7.698750711449039],
+           [113.18950856477073, -7.703343765692603],
+           [113.19577420502952, -7.703343765692603],
+           [113.19577420502952, -7.698750711449039]]],
+         [[[113.19706166535667, -7.693647259468759],
+           [113.19706166535667, -7.698495540309138],
+           [113.20332730561546, -7.698495540309138],
+           [113.20332730561546, -7.693647259468759]]],
+         [[[113.20367062836937, -7.6886713359589045],
+           [113.20367062836937, -7.692243800704381],
+           [113.20890630036644, -7.692243800704381],
+           [113.20890630036644, -7.6886713359589045]]]], null, false),
+    roi_2 = 
+    /* color: #ff0000 */
+    /* shown: false */
+    ee.Geometry.Polygon(
+        [[[113.2583087073562, -7.739630364695468],
+          [113.26972418892359, -7.752812721781175],
+          [113.29161101448511, -7.73724899169504],
+          [113.27873641121363, -7.724576459284456]]]),
+    roi_2_sg = 
+    /* color: #98ff00 */
+    /* shown: false */
+    /* displayProperties: [
+      {
+        "type": "rectangle"
+      },
+      {
+        "type": "rectangle"
+      },
+      {
+        "type": "rectangle"
+      }
+    ] */
+    ee.Geometry.MultiPolygon(
+        [[[[113.27636841217253, -7.727724529259857],
+           [113.27636841217253, -7.731381714830051],
+           [113.2798016397116, -7.731381714830051],
+           [113.2798016397116, -7.727724529259857]]],
+         [[[113.28091743866179, -7.731636866129194],
+           [113.28091743866179, -7.735719265932063],
+           [113.28435066620085, -7.735719265932063],
+           [113.28435066620085, -7.731636866129194]]],
+         [[[113.2852948037741, -7.735549166729],
+           [113.2852948037741, -7.738781039855357],
+           [113.2885563699362, -7.738781039855357],
+           [113.2885563699362, -7.735549166729]]]], null, false),
+    roi_3 = 
+    /* color: #ff0000 */
+    /* shown: false */
+    ee.Geometry.Polygon(
+        [[[113.81123649020981, -7.708755394950293],
+          [113.85140525241684, -7.683068002791737],
+          [113.8409339084227, -7.666906264142966],
+          [113.7999068393309, -7.694465911895346]]]),
+    roi_3_sg = 
+    /* color: #98ff00 */
+    /* shown: false */
+    /* displayProperties: [
+      {
+        "type": "rectangle"
+      },
+      {
+        "type": "rectangle"
+      },
+      {
+        "type": "rectangle"
+      },
+      {
+        "type": "rectangle"
+      }
+    ] */
+    ee.Geometry.MultiPolygon(
+        [[[[113.80513595903997, -7.693540952146658],
+           [113.80513595903997, -7.6965179740137755],
+           [113.81183075274114, -7.6965179740137755],
+           [113.81183075274114, -7.693540952146658]]],
+         [[[113.81423401201849, -7.687331667875288],
+           [113.81423401201849, -7.689288027518338],
+           [113.82110046709661, -7.689288027518338],
+           [113.82110046709661, -7.687331667875288]]],
+         [[[113.82221626604681, -7.681462534854999],
+           [113.82221626604681, -7.6835039816276725],
+           [113.83011268938665, -7.6835039816276725],
+           [113.83011268938665, -7.681462534854999]]],
+         [[[113.83191513384466, -7.675338135684353],
+           [113.83191513384466, -7.677549734454599],
+           [113.84281563128118, -7.677549734454599],
+           [113.84281563128118, -7.675338135684353]]]], null, false),
+    roi_4 = 
+    /* color: #ff0000 */
+    /* shown: false */
+    /* displayProperties: [
+      {
+        "type": "rectangle"
+      }
+    ] */
+    ee.Geometry.Polygon(
+        [[[114.42870518982994, -8.040571636981062],
+          [114.42870518982994, -8.063857381284912],
+          [114.45651433289635, -8.063857381284912],
+          [114.45651433289635, -8.040571636981062]]], null, false),
+    roi_4_sg = 
+    /* color: #98ff00 */
+    /* shown: false */
+    /* displayProperties: [
+      {
+        "type": "rectangle"
+      },
+      {
+        "type": "rectangle"
+      },
+      {
+        "type": "rectangle"
+      }
+    ] */
+    ee.Geometry.MultiPolygon(
+        [[[[114.45097825349052, -8.041778402856197],
+           [114.45097825349052, -8.046027713456501],
+           [114.45501229584892, -8.046027713456501],
+           [114.45501229584892, -8.041778402856197]]],
+         [[[114.44505593598564, -8.048237337364409],
+           [114.44505593598564, -8.053591376087509],
+           [114.44977662385185, -8.053591376087509],
+           [114.44977662385185, -8.048237337364409]]],
+         [[[114.44874665559013, -8.056480827894752],
+           [114.44874665559013, -8.061154897440694],
+           [114.452866528637, -8.061154897440694],
+           [114.452866528637, -8.056480827894752]]]], null, false);
 
-var kloro = ee.ImageCollection("NASA/OCEANDATA/MODIS-Aqua/L3SMI");
+/* 
+Algorithm: Stumpf
 
-Map.centerObject(roi,13);
-Map.setControlVisibility({all: false});   //Cleaning
-Map.setControlVisibility({layerList: true});
+ROI code (roi_):
+0: Grati
+1: Mayangan
+2: Dringu
+3: Pasir Putih
+4: Bangsring
+*/
 
-//Masking
+//Values to be entered
+var geom = roi_0; //Geometry input
+var sg_sample = roi_0_sg; //Make a geometry on deep water areas for sun glint correction 
+var DateStart = ee.Date.fromYMD(2016, 1, 1); //Starting date input
+var DateEnd = ee.Date.fromYMD(2016, 12, 31); //Ending Date input
+
+//Center Map
+Map.centerObject(geom, 13.5);
+
+//bitWise function
+var bitwiseExtract = function(input, fromBit, toBit) {
+  var maskSize = ee.Number(1).add(toBit).subtract(fromBit);
+  var mask = ee.Number(1).leftShift(maskSize).subtract(1);
+  return input.rightShift(fromBit).bitwiseAnd(mask);
+};
+
+//Masking function
 function mask(img){
   var qa = img.select('QA_PIXEL');
   
-  var ccBitMask = 1 << 3; //Cloud Coverage
-  var csBitMask = 1 << 4; //Cloud Shadow
+  // var dcBitMask = bitwiseExtract(qa, 1, 1).eq(0);
+  var ccBitMask = bitwiseExtract(qa, 3, 3).eq(0);
+  var csBitMask = bitwiseExtract(qa, 4, 4).eq(0);
+  var wtrBitMask = bitwiseExtract(qa, 7, 7).eq(1);
+  var maskCombine = ccBitMask.and(csBitMask).and(wtrBitMask);
   
-  var ma =  qa.bitwiseAnd(ccBitMask).eq(0)
-            .and(
-            qa.bitwiseAnd(csBitMask).eq(0));
-           
-  ma = ma.and(img.select([2]).gt(0.01));
-  ma = ma.and(img.select([4]).lt(0.03));
+  maskCombine = maskCombine.focalMin({kernel: ee.Kernel.circle({radius: 1}), iterations: 1});
+  img = img.mask(maskCombine);
   
-  ma = ma.focalMin({kernel: ee.Kernel.circle({radius: 1}), iterations: 1});
-  img = img.mask(ma);
-  
-  var ndwi_revise = (img.select([2]).subtract(img.select([4]))).divide(img.select([2]).add(img.select([4])));
-         img = img.updateMask(ndwi_revise.gt(0));
+  img = img.updateMask(img.select(['B3']).gt(ee.Number(5500)));
+  img = img.updateMask(img.select(['B5']).lt(ee.Number(6500)));
   
   return img;
 }
 
-//Landsat 8 scale correcting
-function applyScaleFactors(image) {
-  var opticalBands = image.select('SR_B.').multiply(0.0000275).add(-0.2);
-  var thermalBands = image.select('ST_B.*').multiply(0.00341802).add(149.0);
-  return image.addBands(opticalBands, null, true)
-              .addBands(thermalBands, null, true);
-}
-
-//set the filter input data to l8-2 depth data
-var l8 = ee.ImageCollection('LANDSAT/LC08/C02/T1_TOA').filter(ee.Filter.bounds(roi));
+//Set the filter input data to landsat 8 data
+var l8nol = ee.ImageCollection('LANDSAT/LC08/C02/T1').filter(ee.Filter.bounds(geom));
 //var l8 = l8nol.map(applyScaleFactors);
 
 //Set up the date range and filter
-l8 = l8.filter(ee.Filter.date(
-  ee.Date.fromYMD(2016, 1, 1),
-  ee.Date.fromYMD(2016, 12, 31)));
+var l8 = l8nol.filter(ee.Filter.date(DateStart, DateEnd));
 
-//run the mask function
+//Run the mask function
 l8 = l8.map(mask);
 
-//get the median value of it
-var median = l8.reduce(ee.Reducer.median());
+//Get the median value of it
+var median = l8.reduce(ee.Reducer.median()).clip(geom);
 
-//calculate the big Rrs, rrs,and rrs*1000
-var bigrrs = median.divide(ee.Number.expression('Math.PI'));
-var rrsvec = bigrrs.divide((bigrrs.multiply(ee.Number(1.7))).add(ee.Number(0.52)));
-var rrsvec1k = rrsvec.multiply(ee.Number(1000));
+print('Geometric RMSE Model:',l8.aggregate_mean('GEOMETRIC_RMSE_MODEL'));
 
-//Chla Test
-var mergeBands = function(image, previous) {
-  return ee.Image(previous).addBands(image);
-};
+//Convert DN
+function convert(img){
+  var l8_b2 = (img.select('B2_median').multiply(l8.aggregate_mean('REFLECTANCE_MULT_BAND_2')))
+               .add(l8.aggregate_mean('REFLECTANCE_ADD_BAND_2'));
+  var l8_b3 = (img.select('B3_median').multiply(l8.aggregate_mean('REFLECTANCE_MULT_BAND_3')))
+               .add(l8.aggregate_mean('REFLECTANCE_ADD_BAND_3'));
+  var l8_b4 = (img.select('B4_median').multiply(l8.aggregate_mean('REFLECTANCE_MULT_BAND_4')))
+               .add(l8.aggregate_mean('REFLECTANCE_ADD_BAND_4'));
+  var l8_b5 = (img.select('B5_median').multiply(l8.aggregate_mean('REFLECTANCE_MULT_BAND_5')))
+               .add(l8.aggregate_mean('REFLECTANCE_ADD_BAND_5'));
+  img = ee.Image([l8_b2, l8_b3, l8_b4, l8_b5]);
+  
+  return img;
+}
+median = convert(median);
 
-var kloroDate = kloro.select(['chlor_a']).filter(ee.Filter.date(
-  ee.Date.fromYMD(2016, 1, 1),
-  ee.Date.fromYMD(2016, 12, 31))).mean();
-var kloroClip = kloroDate.clip(roi);
-var kloroB = kloroClip;
-var kloroR = ee.Number(kloroB.reduceRegion({
+//Deglinting
+function deglint(img){
+  var nir_b2 = img.select(['B5_median', 'B2_median']).reduceRegion({
+      reducer: ee.Reducer.linearFit(),
+      geometry: sg_sample,
+      scale: 30
+      }).get('scale');
+  var nir_b3 = img.select(['B5_median', 'B3_median']).reduceRegion({
+      reducer: ee.Reducer.linearFit(),
+      geometry: sg_sample,
+      scale: 30
+      }).get('scale');
+  var nir_b4 = img.select(['B5_median', 'B4_median']).reduceRegion({
+      reducer: ee.Reducer.linearFit(),
+      geometry: sg_sample,
+      scale: 30
+      }).get('scale');
+  
+  var slopeDict = ee.Dictionary({
+    'b2' : nir_b2,
+    'b3' : nir_b3,
+    'b4' : nir_b4
+  }).toImage();
+      
+  var minNir = img.select(['B5_median']).reduceRegion({
+    reducer: ee.Reducer.min(), 
+    geometry: sg_sample,
+    scale:30
+  }).toImage();
+  
+  return img.select(['B2_median', 'B3_median', 'B4_median'])
+         .subtract(slopeDict.multiply((img.select(['B5_median']).subtract(minNir))));
+}
+var l8_dg = deglint(median).addBands(median.select(['B5_median']));
+
+//Chla data retrieval
+var kloroDate = kloro.select(['CHLA_AVE'])
+                .filter(ee.Filter.eq('SATELLITE_DIRECTION', 'D'))
+                .mean().multiply(0.0016).log10();
+var kloroClip = kloroDate.clip(geom);
+var kloroR = kloroClip.reduceRegion({
   reducer: ee.Reducer.mean(),
   scale: 30,
   bestEffort: true
-}).get('chlor_a'));
-// Map.addLayer(kloroB, {min: 0, max: 10, palette: ['green', 'blue']}, 'chla');
+}); 
+var kloro_if = ee.Algorithms.If(ee.Number(kloroR.get('CHLA_AVE')).lt(2).gt(0), 
+               kloroR.get('CHLA_AVE'), '0.5').getInfo();
 
-var kloroIf = ee.Algorithms.If(kloroR.lte(1), kloroR, '0.5');
+var chla = kloro_if;
+var m0 = ee.Number(52.073 * Math.exp(0.957 * chla));
+var m1 = ee.Number(50.156 * Math.exp(0.957 * chla));
+print('Chl-a number used:', chla);
 
-print(kloroIf);
+//Calculate the formula
+function depth_calc(img){
+  var bigrrs = img.divide(ee.Number(3.14159));
+  var rrsvec_bot = (bigrrs.multiply(ee.Number(1.7))).add(ee.Number(0.52));
+  var rrsvec = bigrrs.divide(rrsvec_bot);
+  var rrsvec1k = rrsvec.multiply(ee.Number(10000));
+  var lnrrsvec = rrsvec1k.log();
+  
+  var depth = (((lnrrsvec.select('B2_median')).divide(lnrrsvec.select('B3_median'))
+              .multiply(m0))).subtract(m1);
+  
+  return depth;
+}
 
-var chla = kloroIf.getInfo();
-var m0 = ee.Number(52.073 * Math.exp(0.957*chla));
-var m1 = ee.Number(50.156 * Math.exp(0.957*chla));
+//Get image for below 14 meter
+var depth0 = depth_calc(l8_dg);
+var depthA = depth0.where(depth0.lt(0), ee.Number(0))
+                   .where(depth0.gt(20), ee.Number(20));
 
-// print(m0, m1)
+//Multiply by -1
+var depth_final = depthA.multiply(-1);
 
-//calculate rrs vec
-var lnrrsvec = rrsvec1k.log();
+//Plot depth
+Map.addLayer(depth_final, {min: -20, max: 0, palette: ['0000FF', '00FFFF']});
 
-//calculate depth here
-var depth = (((lnrrsvec.select([1]).divide(lnrrsvec.select([2]))).multiply(m0))).subtract(m1);
-
-//set boundary, remove negative value or large value in the result
-var depthA = depth.where(depth.lt(0), ee.Number(0));
-// var depth_output = depthA.where(depthA.gt(20), ee.Number(20));
-
-var test = depthA.clip(roi);
-
-//plot depth_output
-Map.addLayer(test, {min: 0, max: 20, palette: ['00FFFF', '0000FF']});
-
-// Export.image.toDrive(test.clip(roi), 'l8');
-
-var mainPanel = ui.Panel({
-    layout: ui.Panel.Layout.flow('vertical', true),
-    style: {
-      position: 'top-center',
-      stretch: 'horizontal',
-      height: '35%',
-      width: '80%',
-    }
-  });
-
-var box = ui.Label({
-  value: 'Satellite Derived Bathymetry', 
-  style: { 
-    fontSize: '24px',
-    fontWeight: 'bold',
-    textAlign: 'center'
-  }
+//Export
+Export.image.toDrive({
+  image: depth_final.clip(geom), 
+  description: 'l8_',
+  folder: 'Skripsi',
+  scale: 1    //meter per pixel
 });
-mainPanel.add(box);
-
-var des = ui.Label({
-  value: 'This Google Earth Engine App is used for generating shallow water bathymetry mapping using Landsat 8 dataset. ' +
-         'Cloud masking and mNDWI is used for making clear water mosaic and land-water filter. ' +
-         'Water depth algoritm is based on Li, J. (2021). ', 
-  style: { 
-    fontSize: '16px'
-  }
-});
-mainPanel.add(des);
-
-var by = ui.Label({
-  value: 'Script by Muhammad Hail Daffa', 
-  style: { 
-    fontSize: '16px'
-  }
-});
-
-var script = ui.Label({
-  value: 'See the script yourself!', 
-  style: { 
-    fontSize: '16px'
-  }
-}).setUrl("https://github.com/Questtttt/Bathy/blob/main/l8-bathymetry.txt");
-
-mainPanel.add(by);
-mainPanel.add(script);
-
-var closeButt = ui.Button({
-  label: 'Close',
-  style: {position: 'bottom-left'},
-  onClick: function() {
-    Map.remove(mainPanel);
-    Map.add(learnMoreButton);
-  }
-});
-mainPanel.add(closeButt);
-
-var learnMoreButton = ui.Button({
-      label: 'Learn More',
-      style: {
-        position: 'top-left',
-        padding: '0',
-      },
-      // React to the button's click event.
-      onClick: function() {
-        Map.add(mainPanel);
-        Map.remove(learnMoreButton);
-      }
-});
-
-Map.add(learnMoreButton);
