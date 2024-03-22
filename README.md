@@ -9,4 +9,5 @@ Script used:
 [Regression](https://github.com/Questtttt/L8-Bathymetry/blob/b82309c7c316b25c05604e156c433f87df38ff78/SDB%20(Stumpf%20-%20Regression).txt)
 <br />
 See script in Google Earth Engine:
-[Here](https://code.earthengine.google.com/1419d0404a6310f0572197ff87b3665d)
+[Chl-a](https://code.earthengine.google.com/b7198c98d45e8dda999a38e1ec5c3334), 
+[Regression](https://code.earthengine.google.com/f80433584c6555b228c2994d912f065c)
