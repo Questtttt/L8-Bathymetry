@@ -221,13 +221,48 @@ ROI code (roi_):
 4: Bangsring
 */
 
+/*
+Algorithm: Stumpf
+
+ROI code (roi_): 
+0: Grati
+1: Mayangan
+2: Dringu
+3: Pasir Putih
+4: Bangsring
+*/
+
 //Values to be entered
-var geom = roi_0; //Geometry input
-var sg_sample = roi_0_sg; //Make a geometry on deep water areas for sun glint correction 
-var real = roi_0_xyz; //Insitu data input
-var z = 'depth'; //Column title for depth or z in insitu data
+var ROI = 1; //Enter ROI code
 var DateStart = ee.Date.fromYMD(2016, 1, 1); //Starting date input
-var DateEnd = ee.Date.fromYMD(2016, 12, 31); //Ending Date input
+var DateEnd = ee.Date.fromYMD(2016, 3, 31); //Ending Date input
+
+//If algorithms for value
+var geom_roi = ee.Algorithms.If(ee.Number(ROI).eq(0), roi_0,
+               ee.Algorithms.If(ee.Number(ROI).eq(1), roi_1,
+               ee.Algorithms.If(ee.Number(ROI).eq(2), roi_2,
+               ee.Algorithms.If(ee.Number(ROI).eq(3), roi_3,
+               ee.Algorithms.If(ee.Number(ROI).eq(4), roi_4
+               )))));
+var sg_s_roi = ee.Algorithms.If(ee.Number(ROI).eq(0), roi_0_sg, 
+               ee.Algorithms.If(ee.Number(ROI).eq(1), roi_1_sg,
+               ee.Algorithms.If(ee.Number(ROI).eq(2), roi_2_sg,
+               ee.Algorithms.If(ee.Number(ROI).eq(3), roi_3_sg,
+               ee.Algorithms.If(ee.Number(ROI).eq(4), roi_4_sg
+               )))));
+var real_roi = ee.Algorithms.If(ee.Number(ROI).eq(0), roi_0_xyz, 
+               ee.Algorithms.If(ee.Number(ROI).eq(1), roi_1_xyz,
+               ee.Algorithms.If(ee.Number(ROI).eq(2), roi_2_xyz,
+               ee.Algorithms.If(ee.Number(ROI).eq(3), roi_3_xyz,
+               ee.Algorithms.If(ee.Number(ROI).eq(4), roi_4_xyz
+               )))));
+var z_roi = ee.Algorithms.If(ee.Number(ROI).eq(0), 'depth', 'z');
+
+//Values
+var geom = ee.Geometry(geom_roi); //Geometry input
+var sg_sample = ee.Geometry(sg_s_roi); //Make a geometry on deep water areas for sun glint correction 
+var real = real_roi; //Insitu data input
+var z = z_roi; //Column title for depth or z in insitu data
 
 //Center Map
 Map.centerObject(geom, 13.5);
@@ -264,7 +299,7 @@ var l8nol = ee.ImageCollection('LANDSAT/LC08/C02/T1').filter(ee.Filter.bounds(ge
 
 //Set up the date range and filter
 var l8 = l8nol.filter(ee.Filter.date(DateStart, DateEnd));
-print(l8)
+print(l8);
 
 //Geometric RMSE Model
 print('Geometric RMSE Model:', l8.aggregate_mean('GEOMETRIC_RMSE_MODEL'));
@@ -334,7 +369,7 @@ function depth_calc(img){
 var depth0 = depth_calc(median);
 
 //In situ Data
-var table_img = real.reduceToImage({
+var table_img = ee.FeatureCollection(real).reduceToImage({
   properties: [z],
   reducer: ee.Reducer.mean()
 });
