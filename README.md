@@ -5,7 +5,7 @@ Shallow Water Bathymetry Mapping in North of East Java Using Landsat 8 Utilizing
 <br />
 <br />
 Script used:
-[Here](SDB (Stumpf ))
+[Here](SDB (Stumpf))
 <br />
 See script in Google Earth Engine:
 [Chl-a](https://code.earthengine.google.com/b7198c98d45e8dda999a38e1ec5c3334), 
