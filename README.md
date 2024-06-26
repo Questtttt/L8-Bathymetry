@@ -8,4 +8,4 @@ Script used:
 [SDB (Stumpf)](https://github.com/Questtttt/L8-Bathymetry/blob/main/SDB%20(Stumpf))
 <br />
 See script in Google Earth Engine:
-[SDB (Stumpf)](https://code.earthengine.google.com/2ffe6efec13f732e599f997fb06dde7e)
+[SDB (Stumpf)](https://code.earthengine.google.com/2dfcd0b07f6ac44b4ddb0b6dfc83caf1)
